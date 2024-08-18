@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VDStream</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #1F1F1F;
+            padding: 1rem;
+        }
+        .navbar .form-control {
+            background-color: #333;
+            border: none;
+            color: #fff;
+        }
+        #content {
+            padding: 2rem;
+        }
+        .card {
+            background-color: #1F1F1F;
+            border: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+            transition: opacity 0.3s ease;
+        }
+        .card-body {
+            color: #fff;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(255, 255, 255, 0.2);
+            background-color: #282828;
+        }
+        .card:hover .card-img-top {
+            opacity: 0.85;
+        }
+        .card-body p {
+            transition: color 0.3s ease;
+        }
+        .card:hover .card-body p {
+            color: #f39c12;
+        }
+        #nav-bar {
+            width: 100%;
+            background-color: #3C3D37;
+        }
+        #content {
+            background-color: #1E201E;
+        }
+        .stretched-link {
+            background-color: red;
+        }
+    </style>
+</head>
+<body>
+    <div id="content">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark" id="nav-bar">
+            <a class="navbar-brand" href="#">VDStream</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="ri-home-line"></i> Home</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="ri-tv-line"></i> Anime Series</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="ri-film-line"></i> Movies</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#"><i class="ri-heart-line"></i> Favorites</a></li>
+                </ul>
+                <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" id="search-input" type="search" placeholder="Search" aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="button" onclick="filterShows()">Search</button>
+                </form>
+            </div>
+        </nav>
+
+        <div class="container">
+            <h1 class="my-4">Anime Series</h1>
+            <div class="row" id="tv-shows">
+                <!-- TV shows will be inserted here by JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tvShows = [
+
+                { 
+                    id: 1, 
+                    title: 'Major', 
+                    image: './image/Major.jpg', 
+                    episode: '9 episodes', 
+                    "episode-list": { 
+                        sample: 'episode1.html', 
+                        episode2: 'episode2.html' 
+                                    } 
+                },
+
+
+                {   
+                    id: 2, 
+                    title: 'Sword Art Online', 
+                    image: './image/Sword_Art_Online.webp', 
+                    episode: '9 episodes', 
+                    "episode-list": { episode1: 'episode1.html', episode2: 'episode2.html' }
+                 },
+
+                { 
+                    id: 3, 
+                    title: 'Inuyasha', 
+                    image: './image/inuyasha.jpg', 
+                    episode: '9 episodes', 
+                    "episode-list": { episode1: 'episode1.html', episode2: 'episode2.html' }
+                },
+
+                { 
+                    id: 4, 
+                    title: 'Toradora', 
+                    image: './image/toradora.jpg', 
+                    episode: '9 episodes', 
+                    "episode-list": { episode1: 'episode1.html', episode2: 'episode2.html' } 
+                },
+
+                { 
+                    id: 5, 
+                    title: 'Your Lie in April', 
+                    image: './image/your-lie-in-april.webp', 
+                    episode: '22 episodes', 
+                    "episode-list": { episode1: 'episode1.html', episode2: 'episode2.html' } 
+                },
+
+                { 
+                    id: 6, 
+                    title: 'Attack on Titan', 
+                    image: 'image6.jpg', 
+                    episode: '9 episodes', 
+                    "episode-list": { episode1: 'episode1.html', episode2: 'episode2.html' } 
+                },
+
+                { 
+                    id: 7, 
+                    title: 'Sample Show 1', 
+                    image: 'image7.jpg', 
+                    episode: '9 episodes', 
+                    "episode-list": { episode1: 'episode1.html', episode2: 'episode2.html' }
+                },
+
+                { 
+                    id: 8, 
+                    title: 'Sample Show 2', 
+                    image: 'image8.jpg', 
+                    episode: '9 episodes', 
+                    "episode-list": { episode1: 'episode1.html', episode2: 'episode2.html' }
+                }
+            ];
+
+            const tvShowsContainer = document.getElementById('tv-shows');
+
+            function displayShows(shows) {
+                tvShowsContainer.innerHTML = '';
+                shows.forEach(show => {
+                    const col = document.createElement('div');
+                    col.className = 'col-md-3';
+
+                    const card = document.createElement('div');
+                    card.className = 'card mb-4 shadow-sm';
+                    card.style.backgroundColor = '#212529';
+
+                    const link = document.createElement('a');
+                    link.href = `show-details.html?id=${show.id}`;
+                    link.className = 'stretched-link';
+
+                    const img = document.createElement('img');
+                    img.className = 'card-img-top';
+                    img.src = show.image;
+                    img.alt = show.title;
+
+                    const cardBody = document.createElement('div');
+                    cardBody.className = 'card-body';
+
+                    const cardText = document.createElement('p');
+                    cardText.className = 'card-text';
+                    cardText.textContent = show.title;
+
+                    const cardFooter = document.createElement('div');
+                    cardFooter.className = 'd-flex flex-column';
+
+                    const smallText = document.createElement('small');
+                    smallText.className = 'text-muted';
+                    smallText.textContent = show.episode;
+
+                    cardFooter.appendChild(smallText);
+                    cardBody.appendChild(cardText);
+                    cardBody.appendChild(cardFooter);
+                    card.appendChild(img);
+                    card.appendChild(cardBody);
+                    link.appendChild(card);
+                    col.appendChild(link);
+                    tvShowsContainer.appendChild(col);
+                });
+            }
+
+            displayShows(tvShows);
+
+            window.filterShows = function() {
+                const searchTerm = document.getElementById('search-input').value.toLowerCase();
+                const filteredShows = tvShows.filter(show => show.title.toLowerCase().includes(searchTerm));
+                displayShows(filteredShows);
+            }
+        });
+    </script>
+</body>
+</html>

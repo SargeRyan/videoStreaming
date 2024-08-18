@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Show Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/remixicon@3.2.0/fonts/remixicon.css">
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212;
+            color: #fff;
+            margin: 0;
+            padding: 0;
+        }
+        .navbar {
+            background-color: #1F1F1F;
+            padding: 1rem;
+        }
+        .container {
+            padding: 2rem;
+        }
+        .card {
+            background-color: #1F1F1F;
+            border: none;
+            margin-bottom: 1rem;
+        }
+        .card-body {
+            color: #fff;
+        }
+        .btn-outline-info {
+            margin: 0.2rem;
+        }
+        .player-section {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+        video {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .episodes-section h2 {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+        }
+        #episode-list .btn {
+            display: block;
+            margin-bottom: 1rem;
+            margin-right: 0.5rem;
+            margin-left: 0.5rem;
+        }
+        #episode-list .btn.active {
+            background-color: #007bff;
+            color: #fff;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">VDStream</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item"><a class="nav-link" href="index.html"><i class="ri-home-line"></i> Home</a></li>
+                <li class="nav-item"><a class="nav-link" href="index.html"><i class="ri-tv-line"></i> Anime Series</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="container">
+        <!-- Video Player Section -->
+        <div class="player-section">
+            <video id="videoPlayer" controls>
+                <source src="episode1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+
+        <!-- Episodes Section -->
+        <div class="episodes-section">
+            <h2 id="show-title">Episodes</h2>
+            <div class="card">
+                <div class="card-body">
+                    <div class="row" id="episode-list">
+                        <!-- Episode buttons will be inserted here by JavaScript -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const tvShows = [
+                { 
+                    id: 1, 
+                    title: 'Major', 
+                    image: './image/Major.jpg', 
+                    episode: '9 episodes', 
+                    "episode-list": { 
+                        EP1: { title: 'Episode 1', link: './video/sample.mp4' },
+                        EP2: { title: 'Episode 2', link: './video/sample.mp4' }, 
+                        EP3: { title: 'Episode 3', link: './video/sample.mp4' }, 
+                        EP4: { title: 'Episode 4', link: 'episode2.mp4' },
+                        EP5: { title: 'Episode 5', link: 'episode3.mp4' }
+                    } 
+                },
+
+                { 
+                    id: 2, 
+                    title: 'Sword Art Online', 
+                    image: './image/Sword_Art_Online.webp', 
+                    episode: '9 episodes', 
+                    "episode-list": { 
+                        episode1: { title: 'Episode 1', link: 'episode1.mp4' }, 
+                        episode2: { title: 'Episode 2', link: 'episode2.mp4' } 
+                    }
+                 },
+
+                { 
+                    id: 3, 
+                    title: 'Inuyasha', 
+                    image: './image/inuyasha.jpg', 
+                    episode: '9 episodes', 
+                    "episode-list": { 
+                        episode1: { title: 'Episode 1', link: 'episode1.mp4' }, 
+                        episode2: { title: 'Episode 2', link: 'episode2.mp4' } 
+                    } 
+                },
+
+                { 
+                    id: 4, 
+                    title: 'Toradora', 
+                    image: './image/toradora.jpg', 
+                    episode: '9 episodes', 
+                    "episode-list": { 
+                        episode1: { title: 'Episode 1', link: 'episode1.mp4' }, 
+                        episode2: { title: 'Episode 2', link: 'episode2.mp4' } 
+                    } 
+                },
+
+                { 
+                    id: 5, 
+                    title: 'Your Lie in April', 
+                    image: './image/your-lie-in-april.webp', 
+                    episode: '22 episodes', 
+                    "episode-list": { 
+                        EP1: { title: 'Episode 1', link: './video/video/EP1.mp4' }, 
+                        EP2: { title: 'Episode 2', link: './video/video/EP2.mp4' },
+                        EP3: { title: 'Episode 3', link: './video/video/EP3.mp4' }, 
+                        EP4: { title: 'Episode 4', link: './video/video/EP4.mp4' },
+                        EP5: { title: 'Episode 5', link: './video/video/EP5.mp4' },
+                        EP6: { title: 'Episode 6', link: './video/video/EP6.mp4' }, 
+                        EP7: { title: 'Episode 7', link: './video/video/EP7.mp4' }, 
+                        EP8: { title: 'Episode 8', link: './video/video/EP8.mp4' },
+                        EP9: { title: 'Episode 9', link: './video/video/EP9.mp4' }, 
+                        EP10: { title: 'Episode 10', link:'./video/video/EP10.mp4' },
+                        EP11: { title: 'Episode 11', link: './video/video/EP11.mp4' }, 
+                        EP12: { title: 'Episode 12', link: './video/video/EP12.mp4' },
+                        EP13: { title: 'Episode 13', link: './video/video/EP13.mp4' }, 
+                        EP14: { title: 'Episode 14', link: './video/video/EP14.mp4' },
+                        EP15: { title: 'Episode 15', link: './video/video/EP15.mp4' }, 
+                        EP16: { title: 'Episode 16', link: './video/video/EP16.mp4' },
+                        EP17: { title: 'Episode 17', link: './video/video/EP17.mp4' }, 
+                        EP18: { title: 'Episode 18', link: './video/video/EP18.mp4' },
+                        EP19: { title: 'Episode 19', link: './video/video/EP19.mp4' }, 
+                        EP20: { title: 'Episode 20', link: './video/video/EP20.mp4' },
+                        EP21: { title: 'Episode 21', link: './video/video/EP21.mp4' }, 
+                        EP22: { title: 'Episode 22', link: './video/video/EP22.mp4' }
+                    } 
+                }
+            ];
+
+            const urlParams = new URLSearchParams(window.location.search);
+            const showId = parseInt(urlParams.get('id'));
+            const show = tvShows.find(s => s.id === showId);
+
+            if (show) {
+                const videoPlayer = document.getElementById('videoPlayer');
+                const episodeListContainer = document.getElementById('episode-list');
+                const showTitle = document.getElementById('show-title');
+
+                // Set the header to include the show title
+                showTitle.textContent = `${show.title} Episodes`;
+
+                for (const [episode, { title, link }] of Object.entries(show["episode-list"])) {
+                    const episodeButton = document.createElement('a');
+                    episodeButton.href = "#";
+                    episodeButton.textContent = title;
+                    episodeButton.className = 'btn btn-sm btn-outline-info';
+
+                    episodeButton.addEventListener('click', function(e) {
+                        e.preventDefault();
+
+                        // Remove active class from all buttons
+                        episodeListContainer.querySelectorAll('a').forEach(button => button.classList.remove('active'));
+
+                        // Add active class to the clicked button
+                        this.classList.add('active');
+
+                        // Update video source and play
+                        videoPlayer.src = link;
+                        videoPlayer.play();
+                    });
+
+                    episodeListContainer.appendChild(episodeButton);
+                }
+            }
+        });
+    </script>
+</body>
+</html>
